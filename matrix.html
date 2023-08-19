@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrix Effect</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: black;
+            color: #0f0;
+            overflow: hidden;
+            margin: 0;
+        }
+        .column {
+            font-size: 14px;
+            line-height: 14px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        var ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var columns = Math.floor(canvas.width / 10);
+        var drops = Array(columns).fill(0);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = '14px monospace';
+
+            for (var i = 0; i < drops.length; i++) {
+                var text = String.fromCharCode(Math.random() * 94 + 33);
+                ctx.fillText(text, i * 10, drops[i] * 14);
+                if (drops[i] * 14 > canvas.height * 1.2 || Math.random() > 0.98) { // Increased the length here
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 50);
+    </script>
+</body>
+</html>
